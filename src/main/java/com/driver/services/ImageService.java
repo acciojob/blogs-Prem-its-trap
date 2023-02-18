@@ -20,7 +20,7 @@ public class ImageService {
         Blog blog = blogRepository2.findById(blogId).get();
         Image image = new Image();
         image.setDescription(description);
-        image.setDimension(dimensions);
+        image.setDimensions(dimensions);
         image.setBlog(blog); // setting foreign key attr
 
 //        List<Image> currentImagesOfBlog = blog.getImageList();
@@ -65,7 +65,7 @@ public class ImageService {
 
         a=0;
         Image image=imageRepository2.findById(id).get();
-        String t=image.getDimension();
+        String t=image.getDimensions();
         while(a<t.length()){
             if(t.charAt(a)=='X') break;
             len.append(t.charAt(a));
