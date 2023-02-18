@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
+@Table(name = "User")
 public class User {
 
     @Id
@@ -19,7 +19,7 @@ public class User {
     private String lastname = "test";
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Blog> listOfBlogs = new ArrayList<>();
+    private List<Blog> blogList = new ArrayList<>();
 
     public User() {
     }
@@ -64,12 +64,12 @@ public class User {
         this.lastname = lastname;
     }
 
-    public List<Blog> getListOfBlogs() {
-        return listOfBlogs;
+    public List<Blog> getBlogList() {
+        return blogList;
     }
 
-    public void setListOfBlogs(List<Blog> listOfBlogs) {
-        this.listOfBlogs = listOfBlogs;
+    public void setBlogList(List<Blog> listOfBlogs) {
+        this.blogList = blogList;
     }
 }
 

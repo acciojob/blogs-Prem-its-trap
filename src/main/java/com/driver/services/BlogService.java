@@ -32,8 +32,9 @@ public class BlogService {
         blog.setUser(user); // setting foreign key attr
 
         // need to update the list blogs created by the user
-        List<Blog> currentBlogsWritten = user.getListOfBlogs();
-        currentBlogsWritten.add(blog);
+//        List<Blog> currentBlogsWritten = user.getListOfBlogs();
+//        currentBlogsWritten.add(blog);
+        user.getBlogList().add(blog);
 
         userRepository1.save(user);
         return  blog;

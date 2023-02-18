@@ -23,8 +23,9 @@ public class ImageService {
         image.setDimension(dimensions);
         image.setBlog(blog); // setting foreign key attr
 
-        List<Image> currentImagesOfBlog = blog.getImageList();
-        currentImagesOfBlog.add(image);
+//        List<Image> currentImagesOfBlog = blog.getImageList();
+//        currentImagesOfBlog.add(image);
+        blog.getImageList().add(image);
 
         blogRepository2.save(blog);
         return image;
@@ -36,23 +37,52 @@ public class ImageService {
 
     public int countImagesInScreen(Integer id, String screenDimensions) {
         //Find the number of images of given dimensions that can fit in a screen having `screenDimensions`
-        String[] scArray = screenDimensions.split("X");
-        Image image = imageRepository2.findById(id).get();
+        int l=Integer.MIN_VALUE;
+        int b=Integer.MIN_VALUE;
+        StringBuilder len=new StringBuilder();
+        StringBuilder br=new StringBuilder();
 
-        String imageDimension = image.getDimension();
-        String[] imgArray = imageDimension.split("X");
+        int a=0;
+        while(a<screenDimensions.length()){
+            if(screenDimensions.charAt(a)=='X') break;
+            len.append(screenDimensions.charAt(a));
+            a++;
+        }
+        a++;
+        while(a<screenDimensions.length()){
+            br.append(screenDimensions.charAt(a));
+            a++;
+        }
 
-        int scr1 = Integer.parseInt(scArray[0]);
-        int scr2 = Integer.parseInt(scArray[1]);
+        l=Integer.parseInt(len.toString());
+        b=Integer.parseInt(br.toString());
 
-        int img1 = Integer.parseInt(imgArray[0]);
-        int img2 = Integer.parseInt(imgArray[1]);
+        len=new StringBuilder();
+        br=new StringBuilder();
 
-        return no_Images(scr1,scr2,img1,img2);
+        int l1=Integer.MIN_VALUE;
+        int b1=Integer.MAX_VALUE;
+
+        a=0;
+        Image image=imageRepository2.findById(id).get();
+        String t=image.getDimension();
+        while(a<t.length()){
+            if(t.charAt(a)=='X') break;
+            len.append(t.charAt(a));
+            a++;
+        }
+        a++;
+        while(a<t.length()){
+            br.append(t.charAt(a));
+            a++;
+        }
+
+        l1=Integer.parseInt(len.toString());
+        b1=Integer.parseInt(br.toString());
+
+        int t1=l/l1;
+        int t2=b/b1;
+        return t1*t2;
     }
-    private int no_Images(int scr1, int scr2, int img1, int img2){
-        int lenC = scr1/img1;
-        int lenB = scr2/img2;
-        return lenC*lenB;
-    }
+
 }
