@@ -21,19 +21,15 @@ public class BlogService {
     UserRepository userRepository1;
 
     public Blog createAndReturnBlog(Integer userId, String title, String content) {
-        //create a blog at the current time
-//        if(!userRepository1.findById(userId).isPresent()){
-//            throw new Exception();
-//        }
+
         User user = userRepository1.findById(userId).get();
         Blog blog = new Blog();
         blog.setTitle(title);
+        blog.setPubDate(new Date());
         blog.setContent(content);
         blog.setUser(user); // setting foreign key attr
 
-        // need to update the list blogs created by the user
-//        List<Blog> currentBlogsWritten = user.getListOfBlogs();
-//        currentBlogsWritten.add(blog);
+
         user.getBlogList().add(blog);
 
         userRepository1.save(user);
